@@ -1,6 +1,6 @@
 ---
-title: Getting Started
-description: "How to install and use Claude Code skills and plugins for 11 AI coding tools — Claude Code, OpenAI Codex, Gemini CLI, OpenClaw, Cursor, Aider, Windsurf, and more."
+title: Install Agent Skills — Codex, Gemini CLI, OpenClaw Setup
+description: "How to install 248 Claude Code skills and agent plugins for 11 AI coding tools. Step-by-step setup for Claude Code, OpenAI Codex, Gemini CLI, OpenClaw, Cursor, Aider, Windsurf, and more."
 ---
 
 # Getting Started
@@ -140,15 +140,15 @@ Choose your platform and follow the steps:
 
 | Bundle | Install Command | Skills |
 |--------|----------------|--------|
-| **Engineering Core** | `/plugin install engineering-skills@claude-code-skills` | 24 |
-| **Engineering POWERFUL** | `/plugin install engineering-advanced-skills@claude-code-skills` | 25 |
-| **Product** | `/plugin install product-skills@claude-code-skills` | 12 |
-| **Marketing** | `/plugin install marketing-skills@claude-code-skills` | 43 |
-| **Regulatory & Quality** | `/plugin install ra-qm-skills@claude-code-skills` | 12 |
-| **Project Management** | `/plugin install pm-skills@claude-code-skills` | 6 |
-| **C-Level Advisory** | `/plugin install c-level-skills@claude-code-skills` | 28 |
-| **Business & Growth** | `/plugin install business-growth-skills@claude-code-skills` | 4 |
-| **Finance** | `/plugin install finance-skills@claude-code-skills` | 2 |
+| **Engineering Core** | `/plugin install engineering-skills@claude-code-skills` | 37 |
+| **Engineering POWERFUL** | `/plugin install engineering-advanced-skills@claude-code-skills` | 42 |
+| **Product** | `/plugin install product-skills@claude-code-skills` | 15 |
+| **Marketing** | `/plugin install marketing-skills@claude-code-skills` | 45 |
+| **Regulatory & Quality** | `/plugin install ra-qm-skills@claude-code-skills` | 14 |
+| **Project Management** | `/plugin install pm-skills@claude-code-skills` | 9 |
+| **C-Level Advisory** | `/plugin install c-level-skills@claude-code-skills` | 34 |
+| **Business & Growth** | `/plugin install business-growth-skills@claude-code-skills` | 5 |
+| **Finance** | `/plugin install finance-skills@claude-code-skills` | 4 |
 
 Or install individual skills: `/plugin install skill-name@claude-code-skills`
 
@@ -182,7 +182,7 @@ AI-augmented development. Optimize for SEO.
 
 ## Python Tools
 
-All 254 tools use the standard library only — zero pip installs, all verified.
+All 332 tools use the standard library only — zero pip installs, all verified.
 
 ```bash
 # Security audit a skill before installing
@@ -247,14 +247,14 @@ See the [Skills & Agents Factory](https://github.com/alirezarezvani/claude-code-
 ??? question "How do I update installed skills?"
     Re-run the install command. The plugin system fetches the latest version from the marketplace.
 
-??? question "Will upgrading to v2.1.2 break my setup?"
-    No. v2.1.2 is fully backward compatible. Existing SKILL.md files, scripts, and references are unchanged. New features (TSX output, brand voice integration) are opt-in additions.
+??? question "Will upgrading to v2.2.0 break my setup?"
+    No. v2.2.0 is fully backward compatible. Existing SKILL.md files, scripts, and references are unchanged. New skills (security suite, self-eval) are additive only.
 
 ??? question "Does this work with Gemini CLI?"
     Yes. Run `./scripts/gemini-install.sh` to set up skills for Gemini CLI. A sync script (`scripts/sync-gemini-skills.py`) generates the skills index automatically.
 
 ??? question "Does this work with Cursor, Windsurf, Aider, or other tools?"
-    Yes. All 156 skills can be converted to native formats for Cursor, Aider, Kilo Code, Windsurf, OpenCode, Augment, and Antigravity. Run `./scripts/convert.sh --tool all` and then install with `./scripts/install.sh --tool <name>`. See [Multi-Tool Integrations](integrations.md) for details.
+    Yes. All 248 skills can be converted to native formats for Cursor, Aider, Kilo Code, Windsurf, OpenCode, Augment, and Antigravity. Run `./scripts/convert.sh --tool all` and then install with `./scripts/install.sh --tool <name>`. See [Multi-Tool Integrations](integrations.md) for details.
 
 ??? question "Can I use Agent Skills in ChatGPT?"
     Yes. We have [6 Custom GPTs](custom-gpts.md) that bring Agent Skills directly into ChatGPT — no installation needed. Just click and start chatting.

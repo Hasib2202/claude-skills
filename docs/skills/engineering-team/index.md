@@ -1,13 +1,13 @@
 ---
-title: "Engineering - Core Skills"
-description: "All 39 Engineering - Core skills for Claude Code, Codex CLI, Gemini CLI, and OpenClaw."
+title: "Engineering - Core Skills — Agent Skills & Codex Plugins"
+description: "51 engineering - core skills — engineering agent skill and Claude Code plugin for code generation, DevOps, architecture, and testing. Works with Claude Code, Codex CLI, Gemini CLI, and OpenClaw."
 ---
 
 <div class="domain-header" markdown>
 
 # :material-code-braces: Engineering - Core
 
-<p class="domain-count">39 skills in this domain</p>
+<p class="domain-count">51 skills in this domain</p>
 
 </div>
 
@@ -17,11 +17,41 @@ description: "All 39 Engineering - Core skills for Claude Code, Codex CLI, Gemin
 
 <div class="grid cards" markdown>
 
+-   **[Accessibility Audit](a11y-audit.md)**
+
+    ---
+
+    WCAG 2.2 Accessibility Audit and Remediation Skill
+
+-   **[Adversarial Code Reviewer](adversarial-reviewer.md)**
+
+    ---
+
+    Adversarial code review skill that forces genuine perspective shifts through three hostile reviewer personas (Saboteu...
+
+-   **[AI Security](ai-security.md)**
+
+    ---
+
+    AI and LLM security assessment skill for detecting prompt injection, jailbreak vulnerabilities, model inversion risk,...
+
 -   **[AWS Solution Architect](aws-solution-architect.md)**
 
     ---
 
     Design scalable, cost-effective AWS architectures for startups with infrastructure-as-code templates.
+
+-   **[Azure Cloud Architect](azure-cloud-architect.md)**
+
+    ---
+
+    Design scalable, cost-effective Azure architectures for startups and enterprises with Bicep infrastructure-as-code te...
+
+-   **[Cloud Security](cloud-security.md)**
+
+    ---
+
+    Cloud security posture assessment skill for detecting IAM privilege escalation, public storage exposure, network conf...
 
 -   **[Code Reviewer](code-reviewer.md)**
 
@@ -41,6 +71,18 @@ description: "All 39 Engineering - Core skills for Claude Code, Codex CLI, Gemin
 
     23 production-ready engineering skills organized into core engineering, AI/ML/Data, and specialized tools.
 
+-   **[Epic Design Skill](epic-design.md)**
+
+    ---
+
+    You are now a world-class epic design expert. You build cinematic, immersive websites that feel premium and alive — u...
+
+-   **[GCP Cloud Architect](gcp-cloud-architect.md)**
+
+    ---
+
+    Design scalable, cost-effective Google Cloud architectures for startups and enterprises with infrastructure-as-code t...
+
 -   **[Google Workspace CLI](google-workspace-cli.md)**
 
     ---
@@ -53,6 +95,12 @@ description: "All 39 Engineering - Core skills for Claude Code, Codex CLI, Gemin
 
     Category: Engineering Team
 
+-   **[Incident Response](incident-response.md)**
+
+    ---
+
+    Incident response skill for the full lifecycle from initial triage through forensic collection, severity declaration,...
+
 -   **[Microsoft 365 Tenant Manager](ms365-tenant-manager.md)**
 
     ---
@@ -64,6 +112,18 @@ description: "All 39 Engineering - Core skills for Claude Code, Codex CLI, Gemin
     ---
 
     Production-grade Playwright testing toolkit for AI coding agents.
+
+-   **[Red Team](red-team.md)**
+
+    ---
+
+    Red team engagement planning and attack path analysis skill for authorized offensive security simulations. This is NO...
+
+-   **[Security Penetration Testing](security-pen-testing.md)**
+
+    ---
+
+    Hands-on offensive security testing skill for finding vulnerabilities before attackers do. This is NOT compliance che...
 
 -   **[Self-Improving Agent](self-improving-agent.md)** + 5 sub-skills
 
@@ -149,6 +209,12 @@ description: "All 39 Engineering - Core skills for Claude Code, Codex CLI, Gemin
 
     Security engineering tools for threat modeling, vulnerability analysis, secure architecture design, and penetration t...
 
+-   **[Snowflake Development](snowflake-development.md)**
+
+    ---
+
+    Snowflake SQL, data pipelines, Cortex AI, and Snowpark Python development. Covers the colon-prefix rule, semi-structu...
+
 -   **[Stripe Integration Expert](stripe-integration-expert.md)**
 
     ---
@@ -166,5 +232,11 @@ description: "All 39 Engineering - Core skills for Claude Code, Codex CLI, Gemin
     ---
 
     Evaluate and compare technologies, frameworks, and cloud providers with data-driven analysis and actionable recommend...
+
+-   **[Threat Detection](threat-detection.md)**
+
+    ---
+
+    Threat detection skill for proactive discovery of attacker activity through hypothesis-driven hunting, IOC analysis, ...
 
 </div>
