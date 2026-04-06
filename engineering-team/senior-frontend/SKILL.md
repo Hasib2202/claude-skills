@@ -1,14 +1,15 @@
 ---
 name: "senior-frontend"
-description: Frontend development skill for React, Next.js, TypeScript, and Tailwind CSS applications. Use when building React components, optimizing Next.js performance, analyzing bundle sizes, scaffolding frontend projects, implementing accessibility, or reviewing frontend code quality.
+description: Frontend development skill for React, Next.js, Angular (ABP Framework), TypeScript, and Tailwind CSS applications. Use when building Angular modules/components for NextX, ABP proxy generation, ng-zorro-antd UI patterns, NgRx state, DevExtreme grids, or React/Next.js work.
 ---
 
 # Senior Frontend
 
-Frontend development patterns, performance optimization, and automation tools for React/Next.js applications.
+Frontend development patterns, performance optimization, and automation tools for React/Next.js/Angular (ABP) applications.
 
 ## Table of Contents
 
+- [Angular / ABP (NextX)](#angular--abp-nextx)
 - [Project Scaffolding](#project-scaffolding)
 - [Component Generation](#component-generation)
 - [Bundle Analysis](#bundle-analysis)
@@ -18,9 +19,206 @@ Frontend development patterns, performance optimization, and automation tools fo
 
 ---
 
+## Angular / ABP (NextX)
+
+ABP Angular 13 patterns for the NextX project. Stack: Angular 13 · ABP 5.2.2 · ng-zorro-antd 13 · NgRx · DevExtreme · Apollo GraphQL.
+
+Full reference: `references/angular_patterns.md`
+
+### Workflow: Add a New Feature Module
+
+1. Create the feature folder under `angular/src/app/pages/`:
+   ```
+   pages/feature-name/
+   ├── feature-name.module.ts
+   ├── feature-name-routing.module.ts
+   ├── feature-name.component.ts
+   └── feature-name.component.html
+   ```
+
+2. Create the lazy-loaded module importing `SharedModule`:
+   ```typescript
+   @NgModule({
+     declarations: [FeatureNameComponent],
+     imports: [SharedModule, FeatureNameRoutingModule, NzTableModule, NzModalModule],
+   })
+   export class FeatureNameModule {}
+   ```
+
+3. Register the lazy route in `app-routing.module.ts`:
+   ```typescript
+   {
+     path: 'feature-name',
+     loadChildren: () =>
+       import('./pages/feature-name/feature-name.module').then(m => m.FeatureNameModule),
+     canActivate: [PermissionGuard],
+     data: { requiredPolicy: 'NextX.FeatureName' },
+   }
+   ```
+
+4. Register the menu entry in `route.provider.ts`:
+   ```typescript
+   routes.add([{
+     path: '/feature-name',
+     name: '::Menu:FeatureName',
+     iconClass: 'fas fa-cube',
+     layout: eLayoutType.application,
+     requiredPolicy: 'NextX.FeatureName',
+   }]);
+   ```
+
+5. Regenerate ABP proxies after any backend API change:
+   ```bash
+   cd angular && abp generate-proxy -t ng
+   ```
+
+6. Add localization key to `Domain.Shared/Localization/NextX/en.json`:
+   ```json
+   { "Menu:FeatureName": "Feature Name" }
+   ```
+
+---
+
+### ABP Proxy Service Usage
+
+Generated proxies live in `src/app/proxy/`. Always use them — never call `HttpClient` directly for ABP API endpoints:
+
+```typescript
+import { ProductService } from '../proxy/products/product.service';
+import { ProductDto, CreateUpdateProductDto } from '../proxy/products/models';
+
+constructor(private productService: ProductService) {}
+
+load() {
+  this.productService.getList({ maxResultCount: 100 }).subscribe(r => {
+    this.items = r.items;
+  });
+}
+```
+
+---
+
+### ng-zorro-antd Quick Reference
+
+| Need | Component | Import |
+|------|-----------|--------|
+| Data table | `<nz-table>` | `NzTableModule` |
+| Modal dialog | `NzModalService` | `NzModalModule` |
+| Form layout | `nz-form-item / nz-form-control` | `NzFormModule` |
+| Notifications | `NzNotificationService` | `NzNotificationModule` |
+| Dropdown menu | `<nz-dropdown-menu>` | `NzDropDownModule` |
+| Date picker | `<nz-date-picker>` | `NzDatePickerModule` |
+| Select box | `<nz-select>` | `NzSelectModule` |
+| Tabs | `<nz-tabset>` | `NzTabsModule` |
+| Tooltip | `nz-tooltip` directive | `NzToolTipModule` |
+
+#### Table with Loading + Pagination
+```html
+<nz-table [nzData]="items" [nzLoading]="loading" [nzPageSize]="20" nzShowPagination>
+  <thead>
+    <tr><th>Name</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of table.data">
+      <td>{{ item.name }}</td>
+      <td>
+        <button nz-button nzSize="small" nzType="primary" (click)="edit(item)">Edit</button>
+        <button nz-button nzSize="small" nzDanger (click)="delete(item.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+```
+
+#### Modal with Component Content
+```typescript
+const ref = this.modal.create({
+  nzTitle: 'Create Product',
+  nzContent: ProductFormComponent,
+  nzComponentParams: { editId: null },
+  nzFooter: null,
+  nzWidth: 720,
+});
+ref.afterClose.subscribe(saved => { if (saved) this.load(); });
+```
+
+---
+
+### DevExtreme Grid — Server-Side Paging
+
+```typescript
+import CustomStore from 'devextreme/data/custom_store';
+
+dataSource = new CustomStore({
+  key: 'id',
+  load: (opts) =>
+    this.productService.getList({
+      skipCount: opts.skip ?? 0,
+      maxResultCount: opts.take ?? 20,
+    }).toPromise().then(r => ({ data: r.items, totalCount: r.totalCount })),
+  remove: (key) => this.productService.delete(key).toPromise(),
+});
+```
+
+```html
+<dx-data-grid [dataSource]="dataSource" [remoteOperations]="true" [showBorders]="true">
+  <dxo-paging [pageSize]="20" />
+  <dxo-export [enabled]="true" fileName="export" />
+  <dxo-search-panel [visible]="true" />
+  <dxi-column dataField="name" caption="Name" />
+  <dxi-column dataField="price" dataType="number" format="currency" />
+</dx-data-grid>
+```
+
+---
+
+### ABP Permissions in Templates
+
+```html
+<!-- Show element only if user has permission -->
+<button *abpPermission="'NextX.Products.Create'" nz-button (click)="openCreate()">
+  New Product
+</button>
+```
+
+Programmatic check:
+```typescript
+import { ConfigStateService } from '@abp/ng.core';
+canCreate = this.config.getGrantedPolicy('NextX.Products.Create');
+```
+
+---
+
+### NgRx — Grid Selection State
+
+```typescript
+// Dispatch selection change
+this.store.dispatch(setSelectedRows({ ids: selectedIds }));
+
+// Select from store
+this.selectedIds$ = this.store.select(state => state.collection.selectedIds);
+```
+
+---
+
+### Angular Build Notes (NextX)
+
+```bash
+# Development
+cd angular && ng serve
+
+# Production build (memory-intensive — uses 10GB heap)
+ng build --configuration production --max_old_space_size=10096
+
+# Install deps (legacy peer deps required)
+npm install --legacy-peer-deps
+```
+
+---
+
 ## Project Scaffolding
 
-Generate a new Next.js or React project with TypeScript, Tailwind CSS, and best practice configurations.
+Generate a new Next.js, React, or Angular project with TypeScript, Tailwind CSS, and best practice configurations.
 
 ### Workflow: Create New Frontend Project
 
@@ -468,6 +666,7 @@ function List<T>({ items, renderItem }: ListProps<T>) {
 
 ## Resources
 
+- Angular / ABP Patterns: `references/angular_patterns.md`
 - React Patterns: `references/react_patterns.md`
 - Next.js Optimization: `references/nextjs_optimization_guide.md`
 - Best Practices: `references/frontend_best_practices.md`
